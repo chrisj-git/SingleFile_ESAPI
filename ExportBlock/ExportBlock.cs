@@ -56,11 +56,6 @@ namespace VMS.TPS
                     //Add the block path
                     sbBlock.Append(sbBlockPath);
 
-                    //Add locating holes
-                    //sbBlock.AppendLine("<circle cx=\"-2\" cy=\"2\" r=\"1.2\" stroke=\"blue\" stroke-width=\"1\" />");
-                    //sbBlock.AppendLine("<circle cx=\"2\" cy=\"2\" r=\"1.2\" stroke=\"blue\" stroke-width=\"1\" />");
-                    //sbBlock.AppendLine("<circle cx=\"-2\" cy=\"-3\" r=\"1.2\" stroke=\"blue\" stroke-width=\"1\" />");
-
                     //Add locating L and Pin
                     sbBlock.Append(AddLocatingJigFromApplicator(context.ExternalPlanSetup.Beams.First().Applicator.Id));
                     
@@ -86,6 +81,7 @@ namespace VMS.TPS
 
         private double SetViewBoxFromApplicator(string id)
         {
+            // viewbox is the dimension of the baseplate for the applicator
             switch (id)
             {
                 case "A06":
@@ -94,16 +90,25 @@ namespace VMS.TPS
                     return 120;
                 case "A15":
                     return 168;
+                case "A20":
+                    return 215;
+                case "A25":
+                    return 263;
                 default:
-                    return 200;
+                    return 263;
             }
         }
 
         private string AddLocatingJigFromApplicator(string id)
         {
+            if (id == "A20" | id == "A25")
+                return AddCAXMarkOnly();
+
             StringBuilder sbJig = new StringBuilder();
+            // Adding the 'L-hole'
             sbJig.AppendLine("<path d=\"M -6.15 2.85 L 2.85 2.85 L 2.85 -3.15 L 6.15 -3.15 L 6.15 6.15 L -6.15 6.15 z\" stroke=\"black\" stroke-width=\"1\" />");
 
+            // Adding the Pin-hole
             switch (id)
             {
                 case "A06":
@@ -124,6 +129,13 @@ namespace VMS.TPS
                 default:
                     return "";
             }
+        }
+
+        private string AddCAXMarkOnly()
+        {
+            StringBuilder sbCAX = new StringBuilder();
+            sbCAX.AppendLine("<path d=\"M -10 -1 L -1 -1 L -1 -10 L 1 -10 L 1 -1 L 10 -1 L 10 1 L 1 1 L 1 10 L -1 10 L -1 1 L -10 1 z\" stroke=\"black\" stroke-width=\"1\" />");
+            return sbCAX.ToString();
         }
 
         private void SaveSVGWithoutHoles(string blockPath, string coneID)
