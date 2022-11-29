@@ -112,19 +112,19 @@ namespace VMS.TPS
             switch (id)
             {
                 case "A06":
-                    sbJig.AppendLine("<circle cx=\"0\" cy=\"0\" r=\"1.5\" stroke=\"blue\" stroke-width=\"1\" />");
+                    sbJig.AppendLine("<circle cx=\"0\" cy=\"0\" r=\"1.8\" stroke=\"blue\" stroke-width=\"1\" />");
                     return sbJig.ToString();
                 case "A10":
-                    sbJig.AppendLine("<circle cx=\"-1\" cy=\"0\" r=\"1.5\" stroke=\"blue\" stroke-width=\"1\" />");
+                    sbJig.AppendLine("<circle cx=\"-1\" cy=\"0\" r=\"1.8\" stroke=\"blue\" stroke-width=\"1\" />");
                     return sbJig.ToString();
                 case "A15":
-                    sbJig.AppendLine("<circle cx=\"-1\" cy=\"-1\" r=\"1.5\" stroke=\"blue\" stroke-width=\"1\" />");
+                    sbJig.AppendLine("<circle cx=\"-1\" cy=\"-1\" r=\"1.8\" stroke=\"blue\" stroke-width=\"1\" />");
                     return sbJig.ToString();
                 case "A20":
-                    sbJig.AppendLine("<circle cx=\"-2\" cy=\"-2\" r=\"1.5\" stroke=\"blue\" stroke-width=\"1\" />");
+                    sbJig.AppendLine("<circle cx=\"-2\" cy=\"-2\" r=\"1.8\" stroke=\"blue\" stroke-width=\"1\" />");
                     return sbJig.ToString();
                 case "A25":
-                    sbJig.AppendLine("<circle cx=\"-3\" cy=\"-3\" r=\"1.5\" stroke=\"blue\" stroke-width=\"1\" />");
+                    sbJig.AppendLine("<circle cx=\"-3\" cy=\"-3\" r=\"1.8\" stroke=\"blue\" stroke-width=\"1\" />");
                     return sbJig.ToString();
                 default:
                     return "";
