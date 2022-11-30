@@ -106,7 +106,7 @@ namespace VMS.TPS
 
             StringBuilder sbJig = new StringBuilder();
             // Adding the 'L-hole'
-            sbJig.AppendLine("<path d=\"M -6.15 2.85 L 2.85 2.85 L 2.85 -3.15 L 6.15 -3.15 L 6.15 6.15 L -6.15 6.15 z\" stroke=\"black\" stroke-width=\"1\" />");
+            sbJig.AppendLine("<path d=\"M -6.2 2.8 L 2.8 2.8 L 2.8 -3.2 L 6.2 -3.2 L 6.2 6.2 L -6.2 6.2 z\" stroke=\"black\" stroke-width=\"1\" />");
 
             // Adding the Pin-hole
             switch (id)
