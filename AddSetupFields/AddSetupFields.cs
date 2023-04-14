@@ -41,10 +41,14 @@ namespace VMS.TPS
             Beam rtSetup = context.ExternalPlanSetup.AddSetupBeam(machineParamters, new VRect<double>(-100, -100, 100, 100), 0, 270, 0, txBeam.IsocenterPosition);
             Beam cbctSetup = context.ExternalPlanSetup.AddSetupBeam(machineParamters, new VRect<double>(-100, -100, 100, 100), 0, 0, 0, txBeam.IsocenterPosition);
             
-            if (context.ExternalPlanSetup.Beams.Any(x => x.Id == ap || x.Id == rt || x.Id == cbct))
+            if (context.ExternalPlanSetup.Beams.Any(x => 
+                x.Id.ToLower() == ap.ToLower() || 
+                x.Id.ToLower() == rt.ToLower() || 
+                x.Id.ToLower() == cbct.ToLower()
+                ))
             {
-                apSetup.Id += "_AP";
-                rtSetup.Id += "_Rt";
+                apSetup.Id += "_AP Setup";
+                rtSetup.Id += "_Rt Setup";
                 cbctSetup.Id += "_CBCT";
             }
             else
@@ -56,7 +60,8 @@ namespace VMS.TPS
 
             apSetup.CreateOrReplaceDRR(boneDRRCalculationParameters);
             rtSetup.CreateOrReplaceDRR(boneDRRCalculationParameters);
-            MessageBox.Show($"Please move the three newly added setup fields to the top of the Field Order list:\n" +
+            MessageBox.Show($"Please move the three newly added setup fields to the top of the Field Order list:\n\n" +
+                "New Fields:\n" +
                 $"{apSetup.Id}\n{rtSetup.Id}\n{cbctSetup.Id}", 
                 "Setup fields added", MessageBoxButton.OK, MessageBoxImage.Information);
 
