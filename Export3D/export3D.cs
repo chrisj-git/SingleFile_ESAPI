@@ -82,7 +82,8 @@ namespace VMS.TPS
           continue;
         string id = structure.Id;
         string filename = MakeFilenameValid(id);
-        SaveTriangleMeshToPlyFile(structure.MeshGeometry, structure.Color, folder + "\\" + filename + ".ply");
+        //SaveTriangleMeshToPlyFile(structure.MeshGeometry, structure.Color, folder + "\\" + filename + ".ply");
+        SaveTriangleMeshtoStlFile(structure.MeshGeometry, folder + "\\" + filename + ".stl");
       }
     }
 
@@ -111,8 +112,8 @@ namespace VMS.TPS
         string filename = MakeFilenameValid(id);
 
         //comment out the file output you do not want
-        SaveTriangleMeshToPlyFile(structure.MeshGeometry, folder + "\\" + filename + ".ply");
-        //SaveTriangleMeshtoStlFile(structure.MeshGeometry, folder + "\\" + filename + ".stl");
+        //SaveTriangleMeshToPlyFile(structure.MeshGeometry, folder + "\\" + filename + ".ply");
+        SaveTriangleMeshtoStlFile(structure.MeshGeometry, folder + "\\" + filename + ".stl");
       }
     }
 

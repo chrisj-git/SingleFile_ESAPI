@@ -60,7 +60,8 @@ namespace VMS.TPS
 
             apSetup.CreateOrReplaceDRR(boneDRRCalculationParameters);
             rtSetup.CreateOrReplaceDRR(boneDRRCalculationParameters);
-            MessageBox.Show($"Please move the three newly added setup fields to the top of the Field Order list:\n\n" +
+            MessageBox.Show($"**Check dose normalization - it may need to be changed back to volume based norm**\n\n" +
+                $"Please move the three newly added setup fields to the top of the Field Order list:\n\n" +
                 "New Fields:\n" +
                 $"{apSetup.Id}\n{rtSetup.Id}\n{cbctSetup.Id}", 
                 "Setup fields added", MessageBoxButton.OK, MessageBoxImage.Information);
