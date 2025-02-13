@@ -29,9 +29,14 @@ namespace VMS.TPS
             }
 
             Structure targetStruct = ShowSelectionDialog(context.ExternalPlanSetup.StructureSet.Structures);
-            
+
+            List<Overlap> overlapList;
             if (targetStruct != null)
-            { CalculateOverlaps(context, targetStruct); }
+            { 
+                overlapList = CalculateOverlaps(context, targetStruct);
+                if (overlapList != null)
+                { ShowResultView(targetStruct.Id, overlapList); }
+            }
         }
 
         private Structure ShowSelectionDialog(IEnumerable<Structure> structures)
@@ -49,7 +54,7 @@ namespace VMS.TPS
             { MessageBox.Show("Selection was canceled."); return null; }
         }
 
-        private void CalculateOverlaps(ScriptContext context, Structure targetStruct)
+        private List<Overlap> CalculateOverlaps(ScriptContext context, Structure targetStruct)
         {
             try
             {
@@ -66,7 +71,7 @@ namespace VMS.TPS
                 if (context.StructureSet.CanAddStructure("CONTROL", "zTarget_HighRes"))
                 { targetHighRes = context.StructureSet.AddStructure("CONTROL", "zTarget_HighRes"); }
                 else
-                { MessageBox.Show("Can't add temp structure for boolean operations! (zTarget_HighRes)"); return; }
+                { MessageBox.Show("Can't add temp structure for boolean operations! (zTarget_HighRes)"); return null; }
             }
 
             targetHighRes.SegmentVolume = targetStruct.SegmentVolume;
@@ -76,7 +81,7 @@ namespace VMS.TPS
                 if (targetHighRes.CanConvertToHighResolution())
                 { targetHighRes.ConvertToHighResolution(); }
                 else
-                { MessageBox.Show("Can't convert " + targetHighRes.Id + " to high resolution for boolean operations!"); return; }
+                { MessageBox.Show("Can't convert " + targetHighRes.Id + " to high resolution for boolean operations!"); return null; }
             }
 
             double targetVolume = targetStruct.Volume;
@@ -87,7 +92,7 @@ namespace VMS.TPS
                 if (context.StructureSet.CanAddStructure("CONTROL", "zTemp_Boolean"))
                 { overlapStruct = context.StructureSet.AddStructure("CONTROL", "zTemp_Boolean"); }
                 else
-                { MessageBox.Show("Can't add temp structure for boolean operations! (zTemp_Boolean)"); return; }
+                { MessageBox.Show("Can't add temp structure for boolean operations! (zTemp_Boolean)"); return null; }
             }
 
             if (!overlapStruct.IsHighResolution)
@@ -95,11 +100,10 @@ namespace VMS.TPS
                 if (overlapStruct.CanConvertToHighResolution())
                 { overlapStruct.ConvertToHighResolution(); }
                 else
-                { MessageBox.Show("Can't convert " + overlapStruct.Id + " to high resolution for boolean operations!"); return; }
+                { MessageBox.Show("Can't convert " + overlapStruct.Id + " to high resolution for boolean operations!"); return null; }
             }
 
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine(string.Format("Target: {0}\tVolume: {1}\n", targetStruct.Id, targetVolume.ToString("F3")));
+            List<Overlap> overlapList = new List<Overlap>();
 
             foreach (Structure s in context.ExternalPlanSetup.StructureSet.Structures)
             {
@@ -126,14 +130,32 @@ namespace VMS.TPS
                     overlapStruct.SegmentVolume = overlapSegmentVolume;
                     if (overlapStruct.Volume != 0)
                     {
-                        double overlapPercent = overlapStruct.Volume / targetVolume;
-
-                        sb.AppendLine(string.Format("Struct: {0}\tOverlap: {1}",
-                            s.Id, overlapPercent.ToString("P2")));
+                        double overlapFraction = overlapStruct.Volume / targetVolume;
+                        overlapList.Add(new Overlap(s.Id, Math.Round(overlapFraction, 3)));
                     }
                 }
             }
-            MessageBox.Show(sb.ToString(), "Percent of target structure overlapping other structures.", MessageBoxButton.OK, MessageBoxImage.Information);
+            return overlapList;
+        }
+
+        private void ShowResultView(string target_ID, List<Overlap> overlapList)
+        {
+            ResultView resultView = new ResultView();
+            resultView.Target_Label.Content = target_ID;
+            resultView.Result_DataGrid.ItemsSource = overlapList;
+            resultView.Result_DataGrid.IsReadOnly = true;
+            resultView.ShowDialog();
+        }
+    }
+
+    public class Overlap
+    {
+        public string Structure { get; set; }
+        public double OverlapFraction { get; set; }
+        public Overlap(string name, double overlapFraction)
+        {
+            Structure = name;
+            OverlapFraction = overlapFraction;
         }
     }
 }
