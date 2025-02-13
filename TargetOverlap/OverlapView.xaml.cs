@@ -29,6 +29,7 @@ namespace TargetOverlap
         public OverlapView()
         {
             InitializeComponent();
+            Overlaps = new ObservableCollection<Overlap>();
             DataContext = this;
         }
 
@@ -37,6 +38,7 @@ namespace TargetOverlap
             if (Structures_comboBox.SelectedItem is string selectedItem)
             {
                 SelectedOption = selectedItem;
+                Overlaps.Clear();
                 CalculateOverlaps();
             }
             else

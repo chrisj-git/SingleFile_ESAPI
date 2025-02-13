@@ -13,7 +13,7 @@
             <Label Content="Select the structure to compute overlaps with:" FontSize="14" FontWeight="Bold" />
             <ComboBox x:Name="Structures_comboBox" Width="200" Margin="10"/>
             <Button Content="Calculate" Width="75" Margin="5" Click="Button_Click"/>
-            <DataGrid x:Name="Result_DataGrid" ItemsSource="{Binding Overlaps}" Margin="10" />
+            <DataGrid x:Name="Result_DataGrid" ItemsSource="{Binding Overlaps}" Margin="10" HorizontalScrollBarVisibility="Disabled"/>
         </StackPanel>
     </Grid>
 </Window>
