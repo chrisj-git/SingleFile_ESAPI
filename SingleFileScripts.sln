@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExportBlock", "ExportBlock\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddSetupFields", "AddSetupFields\AddSetupFields.csproj", "{EED8621B-38DA-44A8-A623-4222486A2C20}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NameStructures", "NameStructures\NameStructures.csproj", "{817842F5-46A2-494C-A6E2-DB1CDB83F495}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TargetOverlap", "TargetOverlap\TargetOverlap.csproj", "{39B8DE51-4B27-4309-907D-B660B1FDEBD4}"
 EndProject
 Global
@@ -33,14 +35,6 @@ Global
 		{EED8621B-38DA-44A8-A623-4222486A2C20}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EED8621B-38DA-44A8-A623-4222486A2C20}.Release|x64.ActiveCfg = Release|Any CPU
 		{EED8621B-38DA-44A8-A623-4222486A2C20}.Release|x64.Build.0 = Release|Any CPU
-		{39B8DE51-4B27-4309-907D-B660B1FDEBD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{39B8DE51-4B27-4309-907D-B660B1FDEBD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{39B8DE51-4B27-4309-907D-B660B1FDEBD4}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{39B8DE51-4B27-4309-907D-B660B1FDEBD4}.Debug|x64.Build.0 = Debug|Any CPU
-		{39B8DE51-4B27-4309-907D-B660B1FDEBD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{39B8DE51-4B27-4309-907D-B660B1FDEBD4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{39B8DE51-4B27-4309-907D-B660B1FDEBD4}.Release|x64.ActiveCfg = Release|Any CPU
-		{39B8DE51-4B27-4309-907D-B660B1FDEBD4}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
