@@ -1,13 +1,9 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using VMS.TPS.Common.Model.API;
-using VMS.TPS.Common.Model.Types;
 using TargetOverlap;
 
 [assembly: ESAPIScript(IsWriteable = true)]
@@ -22,21 +18,26 @@ namespace VMS.TPS
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void Execute(ScriptContext context /*, System.Windows.Window window, ScriptEnvironment environment*/)
         {
-            if (context.ExternalPlanSetup == null)
+            if (context.StructureSet == null)
             { 
-                MessageBox.Show("Please open a plan before running this script."); 
+                MessageBox.Show("Please open a structure set before running this script."); 
                 return; 
             }
 
-            Structure targetStruct = ShowSelectionDialog(context.ExternalPlanSetup.StructureSet.Structures);
+            try
+            { context.Patient.BeginModifications(); }
+            catch (Exception ex)
+            { MessageBox.Show("Modifications not allowed.\n\n" + ex.Message); }
 
-            List<Overlap> overlapList;
-            if (targetStruct != null)
-            { 
-                overlapList = CalculateOverlaps(context, targetStruct);
-                if (overlapList != null)
-                { ShowResultView(targetStruct.Id, overlapList); }
-            }
+            ShowWindow(context.StructureSet);
+        }
+
+        private void ShowWindow(StructureSet structureSet)
+        {
+            OverlapView overlapView = new OverlapView();
+            overlapView._StructureSet = structureSet;
+            overlapView.Structures_comboBox.ItemsSource = structureSet.Structures.Select(x => x.Id);
+            overlapView.ShowDialog();
         }
 
         private Structure ShowSelectionDialog(IEnumerable<Structure> structures)
@@ -56,14 +57,7 @@ namespace VMS.TPS
 
         private List<Overlap> CalculateOverlaps(ScriptContext context, Structure targetStruct)
         {
-            try
-            {
-                context.Patient.BeginModifications();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Modifications not allowed.\n\n" + ex.Message);
-            }
+            
 
             Structure targetHighRes = context.ExternalPlanSetup.StructureSet.Structures.FirstOrDefault(x => x.Id == "zTarget_HighRes");
             if (targetHighRes == null)
