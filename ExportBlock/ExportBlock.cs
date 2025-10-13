@@ -106,25 +106,25 @@ namespace VMS.TPS
 
             StringBuilder sbJig = new StringBuilder();
             // Adding the 'L-hole'
-            sbJig.AppendLine("<path d=\"M -6.3 2.7 L 2.7 2.7 L 2.7 -3.3 L 6.3 -3.3 L 6.3 6.3 L -6.3 6.3 z\" stroke=\"black\" stroke-width=\"1\" />");
+            sbJig.AppendLine("<path d=\"M -6.4 2.6 L 2.6 2.6 L 2.6 -3.4 L 6.4 -3.4 L 6.4 6.4 L -6.4 6.4 z\" stroke=\"black\" stroke-width=\"1\" />");
 
             // Adding the Pin-hole
             switch (id)
             {
                 case "A06":
-                    sbJig.AppendLine("<circle cx=\"0\" cy=\"0\" r=\"1.8\" stroke=\"blue\" stroke-width=\"1\" />");
+                    sbJig.AppendLine("<circle cx=\"0\" cy=\"0\" r=\"1.9\" stroke=\"blue\" stroke-width=\"1\" />");
                     return sbJig.ToString();
                 case "A10":
-                    sbJig.AppendLine("<circle cx=\"-1\" cy=\"0\" r=\"1.8\" stroke=\"blue\" stroke-width=\"1\" />");
+                    sbJig.AppendLine("<circle cx=\"-1\" cy=\"0\" r=\"1.9\" stroke=\"blue\" stroke-width=\"1\" />");
                     return sbJig.ToString();
                 case "A15":
-                    sbJig.AppendLine("<circle cx=\"-1\" cy=\"-1\" r=\"1.8\" stroke=\"blue\" stroke-width=\"1\" />");
+                    sbJig.AppendLine("<circle cx=\"-1\" cy=\"-1\" r=\"1.9\" stroke=\"blue\" stroke-width=\"1\" />");
                     return sbJig.ToString();
                 case "A20":
-                    sbJig.AppendLine("<circle cx=\"-2\" cy=\"-2\" r=\"1.8\" stroke=\"blue\" stroke-width=\"1\" />");
+                    sbJig.AppendLine("<circle cx=\"-2\" cy=\"-2\" r=\"1.9\" stroke=\"blue\" stroke-width=\"1\" />");
                     return sbJig.ToString();
                 case "A25":
-                    sbJig.AppendLine("<circle cx=\"-3\" cy=\"-3\" r=\"1.8\" stroke=\"blue\" stroke-width=\"1\" />");
+                    sbJig.AppendLine("<circle cx=\"-3\" cy=\"-3\" r=\"1.9\" stroke=\"blue\" stroke-width=\"1\" />");
                     return sbJig.ToString();
                 default:
                     return "";
