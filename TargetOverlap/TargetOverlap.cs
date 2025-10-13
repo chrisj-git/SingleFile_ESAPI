@@ -21,7 +21,7 @@ namespace VMS.TPS
             if (context.StructureSet == null)
             { 
                 MessageBox.Show("Please open a structure set before running this script."); 
-                return; 
+                return;
             }
 
             try
@@ -142,14 +142,5 @@ namespace VMS.TPS
         }
     }
 
-    public class Overlap
-    {
-        public string Structure { get; set; }
-        public double OverlapFraction { get; set; }
-        public Overlap(string name, double overlapFraction)
-        {
-            Structure = name;
-            OverlapFraction = overlapFraction;
-        }
-    }
+    
 }

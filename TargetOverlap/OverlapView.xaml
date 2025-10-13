@@ -9,11 +9,24 @@
              Height="500" Width="350"
              Title="Structure Overlap Calculator">
     <Grid>
-        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center">
-            <Label Content="Select the structure to compute overlaps with:" FontSize="14" FontWeight="Bold" />
-            <ComboBox x:Name="Structures_comboBox" Width="200" Margin="10"/>
-            <Button Content="Calculate" Width="75" Margin="5" Click="Button_Click"/>
-            <DataGrid x:Name="Result_DataGrid" ItemsSource="{Binding Overlaps}" Margin="10" HorizontalScrollBarVisibility="Disabled"/>
-        </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Content="Select the structure to compute overlaps with:" FontSize="14" FontWeight="Bold"
+               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <ComboBox Grid.Row="1" x:Name="Structures_comboBox" Height="25" Margin="10" HorizontalAlignment="Center" HorizontalContentAlignment="Left"/>
+        <Button Grid.Row="2" Content="Calculate" Width="80" Height="30" Margin="5" Click="Button_Click" HorizontalAlignment="Center"/>
+
+        <DataGrid Grid.Row="3" x:Name="Result_DataGrid" ItemsSource="{Binding Overlaps}" Margin="10" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Structure" Binding="{Binding Structure}" Width="*" />
+                <DataGridTextColumn Header="OverlapFraction" Binding="{Binding OverlapFraction}" Width="100" />
+            </DataGrid.Columns>
+        </DataGrid>
+
     </Grid>
 </Window>
