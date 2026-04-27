@@ -22,6 +22,7 @@ namespace VMS.TPS
             { MessageBox.Show("There must be at least one field to match isocenter with."); return; }
 
             ExternalBeamMachineParameters machineParamters = SetMachineParameters();
+            DRRCalculationParameters breastDRRCalculationParameters = createBreastDRRParameters();
             DRRCalculationParameters boneDRRCalculationParameters = createBoneDRRParameters();
             
             string ap = "AP Setup";
@@ -35,6 +36,7 @@ namespace VMS.TPS
             catch (Exception ex)
             {
                 MessageBox.Show("Modifications not allowed.\n\n" + ex.Message);
+                return;
             }
 
             Beam apSetup = context.ExternalPlanSetup.AddSetupBeam(machineParamters, new VRect<double>(-100, -100, 100, 100), 0, 0, 0, txBeam.IsocenterPosition);
@@ -58,9 +60,10 @@ namespace VMS.TPS
                 cbctSetup.Id = "CBCT";
             }
 
-            apSetup.CreateOrReplaceDRR(boneDRRCalculationParameters);
-            rtSetup.CreateOrReplaceDRR(boneDRRCalculationParameters);
-            MessageBox.Show($"**Check dose normalization - it may need to be changed back to volume based norm**\n\n" +
+            apSetup.CreateOrReplaceDRR(breastDRRCalculationParameters);
+            rtSetup.CreateOrReplaceDRR(breastDRRCalculationParameters);
+            cbctSetup.CreateOrReplaceDRR(boneDRRCalculationParameters);
+            MessageBox.Show($"**Check dose normalization - it may need to be changed back to volume based norm**\n\n\n\n" +
                 $"Please move the three newly added setup fields to the top of the Field Order list:\n\n" +
                 "New Fields:\n" +
                 $"{apSetup.Id}\n{rtSetup.Id}\n{cbctSetup.Id}", 
@@ -76,6 +79,18 @@ namespace VMS.TPS
             DRRCalculationParameters createBoneDRRParameters()
             {
                 return new DRRCalculationParameters(500, 1.0, 100, 1000);
+            }
+
+            DRRCalculationParameters createBreastDRRParameters()
+            {
+                DRRCalculationParameters drrParams = new DRRCalculationParameters();
+                drrParams.SetLayerParameters(0, 0.5, -600, 0, -1000, 1000);
+                drrParams.SetLayerParameters(1, 1, 100, 400);
+                drrParams.GetLayerParameters(0).GeoClipping = true;
+                drrParams.GetLayerParameters(0).LayerOn = true;
+                drrParams.GetLayerParameters(1).LayerOn = true;
+
+                return drrParams;
             }
         }
     }
