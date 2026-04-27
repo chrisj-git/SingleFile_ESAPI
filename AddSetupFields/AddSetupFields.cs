@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using VMS.TPS.Common.Model.API;
@@ -42,7 +43,17 @@ namespace VMS.TPS
             Beam apSetup = context.ExternalPlanSetup.AddSetupBeam(machineParamters, new VRect<double>(-100, -100, 100, 100), 0, 0, 0, txBeam.IsocenterPosition);
             Beam rtSetup = context.ExternalPlanSetup.AddSetupBeam(machineParamters, new VRect<double>(-100, -100, 100, 100), 0, 270, 0, txBeam.IsocenterPosition);
             Beam cbctSetup = context.ExternalPlanSetup.AddSetupBeam(machineParamters, new VRect<double>(-100, -100, 100, 100), 0, 0, 0, txBeam.IsocenterPosition);
-            
+
+            List<Beam> beamList = context.ExternalPlanSetup.BeamsInTreatmentOrder.ToList();
+            beamList.Remove(rtSetup);
+            beamList.Insert(0, rtSetup);
+            beamList.Remove(apSetup);
+            beamList.Insert(0, apSetup);
+            beamList.Remove(cbctSetup);
+            beamList.Insert(0, cbctSetup);
+
+            context.ExternalPlanSetup.SetTreatmentOrder(beamList);
+
             if (context.ExternalPlanSetup.Beams.Any(x => 
                 x.Id.ToLower() == ap.ToLower() || 
                 x.Id.ToLower() == rt.ToLower() || 
@@ -63,11 +74,9 @@ namespace VMS.TPS
             apSetup.CreateOrReplaceDRR(breastDRRCalculationParameters);
             rtSetup.CreateOrReplaceDRR(breastDRRCalculationParameters);
             cbctSetup.CreateOrReplaceDRR(boneDRRCalculationParameters);
-            MessageBox.Show($"**Check dose normalization - it may need to be changed back to volume based norm**\n\n\n\n" +
-                $"Please move the three newly added setup fields to the top of the Field Order list:\n\n" +
-                "New Fields:\n" +
-                $"{apSetup.Id}\n{rtSetup.Id}\n{cbctSetup.Id}", 
-                "Setup fields added", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"**Check dose normalization - it may need to be changed back to volume based norm**\n\n" +
+                "New setup fields added:\n" +
+                $"{apSetup.Id}\n{rtSetup.Id}\n{cbctSetup.Id}", "Setup fields added", MessageBoxButton.OK, MessageBoxImage.Information);
 
 
             ExternalBeamMachineParameters SetMachineParameters()
