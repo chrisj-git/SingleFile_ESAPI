@@ -34,8 +34,10 @@ namespace VMS.TPS
 
         private void ShowWindow(StructureSet structureSet)
         {
-            OverlapView overlapView = new OverlapView();
-            overlapView._StructureSet = structureSet;
+            OverlapView overlapView = new OverlapView
+            {
+                _StructureSet = structureSet
+            };
             overlapView.Structures_comboBox.ItemsSource = structureSet.Structures.Select(x => x.Id);
             overlapView.ShowDialog();
         }
@@ -142,5 +144,4 @@ namespace VMS.TPS
         }
     }
 
-    
 }
