@@ -44,7 +44,11 @@ namespace VMS.TPS
                         else
                         { sbBlockPath.Append(" L " + points[0][i].X + " " + points[0][i].Y); }
                     }
-                    sbBlockPath.Append(" z\" stroke=\"black\" stroke-width=\"1\" />\n");
+
+                    //Add locating L and Pin
+                    sbBlock.Append(AddLocatingJigFromApplicator(context.ExternalPlanSetup.Beams.First().Applicator.Id));
+
+                    sbBlockPath.Append(" z\" />\n");
 
                     //Start the XML and set the viewbox
                     sbBlock.AppendLine("<?xml version=\"1.0\" standalone=\"no\"?>");
@@ -56,8 +60,7 @@ namespace VMS.TPS
                     //Add the block path
                     sbBlock.Append(sbBlockPath);
 
-                    //Add locating L and Pin
-                    sbBlock.Append(AddLocatingJigFromApplicator(context.ExternalPlanSetup.Beams.First().Applicator.Id));
+                    
                     
                     //end XML
                     sbBlock.AppendLine("</svg>");
@@ -105,26 +108,26 @@ namespace VMS.TPS
                 return AddCAXMarkOnly();
 
             StringBuilder sbJig = new StringBuilder();
-            // Adding the 'L-hole'
-            sbJig.AppendLine("<path d=\"M -6.4 2.6 L 2.6 2.6 L 2.6 -3.4 L 6.4 -3.4 L 6.4 6.4 L -6.4 6.4 z\" stroke=\"black\" stroke-width=\"1\" />");
+            // Adding the 'L-hole' ** remember that the block is printing upside down -- so these X coordinates are reflected from what you will see on the tray
+            sbJig.AppendLine(" M -6.2 2.8 L 2.8 2.8 L 2.8 -3.2 L 6.2 -3.2 L 6.2 6.2 L -6.2 6.2");
 
             // Adding the Pin-hole
             switch (id)
             {
                 case "A06":
-                    sbJig.AppendLine("<circle cx=\"0\" cy=\"0\" r=\"1.9\" stroke=\"blue\" stroke-width=\"1\" />");
+                    sbJig.AppendLine(" M 0,-1.5 A 1.5,1.6 0 1,1, 0,1.5 A 1.5,1.5 0 1,1, 0,-1.5");
                     return sbJig.ToString();
                 case "A10":
-                    sbJig.AppendLine("<circle cx=\"-1\" cy=\"0\" r=\"1.9\" stroke=\"blue\" stroke-width=\"1\" />");
+                    sbJig.AppendLine(" M -1,-1.5 A 1.5,1.6 0 1,1, -1,1.5 A 1.5,1.5 0 1,1, -1,-1.5");
                     return sbJig.ToString();
                 case "A15":
-                    sbJig.AppendLine("<circle cx=\"-1\" cy=\"-1\" r=\"1.9\" stroke=\"blue\" stroke-width=\"1\" />");
+                    sbJig.AppendLine(" M -1,-2.5 A 1.5,1.6 0 1,1, -1,0.5 A 1.5,1.5 0 1,1, -1,-2.5");
                     return sbJig.ToString();
                 case "A20":
-                    sbJig.AppendLine("<circle cx=\"-2\" cy=\"-2\" r=\"1.9\" stroke=\"blue\" stroke-width=\"1\" />");
+                    sbJig.AppendLine(" M -2,-3.5 A 1.5,1.6 0 1,1, -2,-0.5 A 1.5,1.5 0 1,1, -2,-3.5");
                     return sbJig.ToString();
                 case "A25":
-                    sbJig.AppendLine("<circle cx=\"-3\" cy=\"-3\" r=\"1.9\" stroke=\"blue\" stroke-width=\"1\" />");
+                    sbJig.AppendLine(" M -3,-4.5 A 1.5,1.6 0 1,1, -3,-1.5 A 1.5,1.5 0 1,1, -3,-4.5");
                     return sbJig.ToString();
                 default:
                     return "";
@@ -134,7 +137,7 @@ namespace VMS.TPS
         private string AddCAXMarkOnly()
         {
             StringBuilder sbCAX = new StringBuilder();
-            sbCAX.AppendLine("<path d=\"M -10 -1 L -1 -1 L -1 -10 L 1 -10 L 1 -1 L 10 -1 L 10 1 L 1 1 L 1 10 L -1 10 L -1 1 L -10 1 z\" stroke=\"black\" stroke-width=\"1\" />");
+            sbCAX.AppendLine(" M -10 -1 L -1 -1 L -1 -10 L 1 -10 L 1 -1 L 10 -1 L 10 1 L 1 1 L 1 10 L -1 10 L -1 1 L -10 1");
             return sbCAX.ToString();
         }
 
