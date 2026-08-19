@@ -46,7 +46,7 @@ namespace VMS.TPS
                     }
 
                     //Add locating L and Pin
-                    sbBlock.Append(AddLocatingJigFromApplicator(context.ExternalPlanSetup.Beams.First().Applicator.Id));
+                    sbBlockPath.Append(AddLocatingJigFromApplicator(context.ExternalPlanSetup.Beams.First().Applicator.Id));
 
                     sbBlockPath.Append(" z\" />\n");
 
@@ -115,19 +115,19 @@ namespace VMS.TPS
             switch (id)
             {
                 case "A06":
-                    sbJig.AppendLine(" M 0,-1.5 A 1.5,1.6 0 1,1, 0,1.5 A 1.5,1.5 0 1,1, 0,-1.5");
+                    sbJig.AppendLine(" M 0,-1.5 A 1.5,1.5 0 1,1, 0,1.5 A 1.5,1.5 0 1,1, 0,-1.5");
                     return sbJig.ToString();
                 case "A10":
-                    sbJig.AppendLine(" M -1,-1.5 A 1.5,1.6 0 1,1, -1,1.5 A 1.5,1.5 0 1,1, -1,-1.5");
+                    sbJig.AppendLine(" M -1,-1.5 A 1.5,1.5 0 1,1, -1,1.5 A 1.5,1.5 0 1,1, -1,-1.5");
                     return sbJig.ToString();
                 case "A15":
-                    sbJig.AppendLine(" M -1,-2.5 A 1.5,1.6 0 1,1, -1,0.5 A 1.5,1.5 0 1,1, -1,-2.5");
+                    sbJig.AppendLine(" M -1,-2.5 A 1.5,1.5 0 1,1, -1,0.5 A 1.5,1.5 0 1,1, -1,-2.5");
                     return sbJig.ToString();
                 case "A20":
-                    sbJig.AppendLine(" M -2,-3.5 A 1.5,1.6 0 1,1, -2,-0.5 A 1.5,1.5 0 1,1, -2,-3.5");
+                    sbJig.AppendLine(" M -2,-3.5 A 1.5,1.5 0 1,1, -2,-0.5 A 1.5,1.5 0 1,1, -2,-3.5");
                     return sbJig.ToString();
                 case "A25":
-                    sbJig.AppendLine(" M -3,-4.5 A 1.5,1.6 0 1,1, -3,-1.5 A 1.5,1.5 0 1,1, -3,-4.5");
+                    sbJig.AppendLine(" M -3,-4.5 A 1.5,1.5 0 1,1, -3,-1.5 A 1.5,1.5 0 1,1, -3,-4.5");
                     return sbJig.ToString();
                 default:
                     return "";
