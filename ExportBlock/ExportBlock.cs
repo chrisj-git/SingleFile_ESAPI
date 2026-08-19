@@ -65,7 +65,7 @@ namespace VMS.TPS
                     //end XML
                     sbBlock.AppendLine("</svg>");
 
-                    string filePath = @"\\thimage-16\va_transfer\blockexports\block_" + DateTime.Now.ToString("yyyy-MM-dd HHmmss") + ".svg";
+                    string filePath = @"\\C0103AE1-SF\VA_Transfer\GRTC Transfer\blockexports\block_" + DateTime.Now.ToString("yyyy-MM-dd HHmmss") + ".svg";
 
                     try
                     { File.AppendAllText(filePath, sbBlock.ToString()); }
@@ -154,7 +154,7 @@ namespace VMS.TPS
             sbBlock.Append(blockPath);
             sbBlock.AppendLine("</svg>");
 
-            string filePath = @"\\thimage-16\va_transfer\blockexports\block_noHoles_" + DateTime.Now.ToString("yyyy-MM-dd HHmmss") + ".svg";
+            string filePath = @"\\C0103AE1-SF\VA_Transfer\GRTC Transfer\blockexports\block_noHoles_" + DateTime.Now.ToString("yyyy-MM-dd HHmmss") + ".svg";
 
             try
             { File.AppendAllText(filePath, sbBlock.ToString()); }
