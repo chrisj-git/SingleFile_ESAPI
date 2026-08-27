@@ -67,7 +67,7 @@ namespace VMS.TPS
                     }
 
                     //Add locating L and Pin
-                    if (windSum > 0)
+                    if (windSum < 0)
                     { sbBlockPath.Append(AddLocatingJigFromApplicatorCCW(context.ExternalPlanSetup.Beams.First().Applicator.Id)); }
                     else
                     { sbBlockPath.Append(AddLocatingJigFromApplicatorCW(context.ExternalPlanSetup.Beams.First().Applicator.Id)); }
